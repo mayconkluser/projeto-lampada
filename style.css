@@ -1,0 +1,13 @@
+header,
+main {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+}
+
+button {
+  width: 100px;
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+}
