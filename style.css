@@ -1,3 +1,7 @@
+body {
+  background: #444;
+  transition: 0.6s;
+}
 header,
 main {
   flex-direction: column;
@@ -10,4 +14,73 @@ button {
   padding: 10px;
   margin: 5px;
   cursor: pointer;
+}
+#lampada.activeOn {
+  animation: ligar 0.6s forwards;
+}
+#lampada.activeOff {
+  animation: Desligar 0.6s forwards;
+}
+body.active {
+  background: white;
+  transition: 0.6s;
+}
+@keyframes ligar {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes Desligar {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.4;
+  }
+}
+body {
+  background: #444;
+  transition: 0.6s;
+}
+header,
+main {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+}
+
+button {
+  width: 100px;
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+}
+#lampada.activeOn {
+  animation: ligar 0.6s forwards;
+}
+#lampada.activeOff {
+  animation: Desligar 0.6s forwards;
+}
+body.active {
+  background: white;
+  transition: 0.6s;
+}
+@keyframes ligar {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes Desligar {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.4;
+  }
 }

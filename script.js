@@ -1,54 +1,59 @@
-const turnOn = document.getElementById("turnOn"),
-  turnOff = document.getElementById("turnOff"),
-  lamp = document.getElementById("lamp"),
-  active = "active";
+const lamapada = document.getElementById("lampada");
+const ligado = document.getElementById("ligado");
+const reconstruida = document.getElementById("reconstruida");
+const body = document.querySelector("body");
 
-function isLampBroken() {
-  return lamp.src.indexOf("quebrada") > -1;
-}
-function lampOn() {
-  if (!isLampBroken()) {
-    lamp.src = "./img/ligada.jpg";
-    turnOn.innerText = "Desligar";
-    turnOn.classList.add(active);
+const lamapadaQuebrada = () => {
+  return lamapada.src.indexOf("quebrada") > -1;
+};
+
+const ligar = () => {
+  if (!lamapadaQuebrada()) {
+    lamapada.classList.remove("activeOff");
+    lamapada.classList.add("activeOn");
+    body.classList.add("active");
+    lamapada.src = "./img/ligada.png";
+    ligado.innerText = "Desligar";
+    return true;
   }
-}
-function lampOff() {
-  if (!isLampBroken()) {
-    lamp.src = "./img/desligada.jpg";
-    turnOn.innerText = "Ligar";
-    turnOn.classList.remove(active);
+};
+
+const desligar = () => {
+  if (!lamapadaQuebrada()) {
+    lamapada.classList.remove("activeOn");
+    lamapada.classList.add("activeOff");
+    body.classList.remove("active");
+    lamapada.src = "./img/desligada.png";
+    ligado.innerText = "Ligar";
   }
-}
+};
 
-function lampbroken() {
-  lamp.src = "./img/quebrada.jpg";
-  turnOn.classList.remove(active);
-}
+const quebrar = () => {
+  lamapada.classList.add("activeOff");
+  lamapada.src = "./img/quebrada.png";
+  body.classList.remove("active");
+};
 
-function lampOnLampOff() {
-  turnOn.classList.toggle(active);
-  if (turnOn.className === "active") {
-    if (!isLampBroken()) {
-      lamp.src = "./img/ligada.jpg";
-      turnOn.innerText = "Desligar";
+const reconstruir = () => {
+  if (lamapadaQuebrada()) {
+    lamapada.src = "./img/desligada.png";
+    ligado.innerText = "Ligar";
+    desligar();
+  }
+};
+
+const ligarDesligar = () => {
+  if (!lamapadaQuebrada()) {
+    if (lamapada.src.indexOf("desligada") > -1) {
+      ligar();
+    } else if (lamapada.src.indexOf("ligada") - 1) {
+      desligar();
     }
-  } else if (turnOn.className === "") {
-    if (!isLampBroken()) {
-      lamp.src = "./img/desligada.jpg";
-      turnOn.innerText = "Ligar";
-      turnOn.classList.remove(active);
-    }
   }
-}
-function reconstruct() {
-  lamp.src = "./img/desligada.jpg";
-  turnOn.innerText = "Ligar";
-}
-
-turnOn.addEventListener("click", lampOnLampOff);
-turnOff.addEventListener("click", reconstruct);
-
-lamp.addEventListener("mouseover", lampOn);
-lamp.addEventListener("mouseleave", lampOff);
-lamp.addEventListener("dblclick", lampbroken);
+};
+desligar();
+ligado.addEventListener("click", ligarDesligar);
+reconstruida.addEventListener("click", reconstruir);
+lamapada.addEventListener("dblclick", quebrar);
+lamapada.addEventListener("mouseover", ligar);
+lamapada.addEventListener("mouseout", desligar);
