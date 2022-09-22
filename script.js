@@ -1,59 +1,53 @@
-const lamapada = document.getElementById("lampada");
-const ligado = document.getElementById("ligado");
-const reconstruida = document.getElementById("reconstruida");
-const body = document.querySelector("body");
+const luzLampada = document.getElementById("lampada");
+const btnOnOff = document.getElementById("btnOnOff");
+const btnreconstrur = document.getElementById("btnreconstrur");
+const backgroundBody = document.querySelector("body");
 
-const lamapadaQuebrada = () => {
-  return lamapada.src.indexOf("quebrada") > -1;
+const luzLampadaQuebrada = () => {
+  return luzLampada.src.indexOf("quebrada") > -1;
 };
 
-const ligar = () => {
-  if (!lamapadaQuebrada()) {
-    lamapada.classList.remove("activeOff");
-    lamapada.classList.add("activeOn");
-    body.classList.add("active");
-    lamapada.src = "./img/ligada.png";
-    ligado.innerText = "Desligar";
-    return true;
+const luzLigar = () => {
+  if (!luzLampadaQuebrada()) {
+    btnOnOff.textContent = "Desligar";
+    luzLampada.src = "./img/ligada.png";
+    backgroundBody.classList.add("active");
   }
 };
 
-const desligar = () => {
-  if (!lamapadaQuebrada()) {
-    lamapada.classList.remove("activeOn");
-    lamapada.classList.add("activeOff");
-    body.classList.remove("active");
-    lamapada.src = "./img/desligada.png";
-    ligado.innerText = "Ligar";
+const luzDesligar = () => {
+  if (!luzLampadaQuebrada()) {
+    btnOnOff.textContent = "Ligar";
+    luzLampada.src = "./img/desligada.png";
+    backgroundBody.classList.remove("active");
   }
 };
 
-const quebrar = () => {
-  lamapada.classList.add("activeOff");
-  lamapada.src = "./img/quebrada.png";
-  body.classList.remove("active");
+const destruirLampada = () => {
+  luzLampada.src = "./img/quebrada.png";
+  backgroundBody.classList.remove("active");
 };
 
-const reconstruir = () => {
-  if (lamapadaQuebrada()) {
-    lamapada.src = "./img/desligada.png";
-    ligado.innerText = "Ligar";
-    desligar();
+const reconstruirLampada = () => {
+  if (luzLampadaQuebrada()) {
+    btnOnOff.textContent = "Ligar";
+    luzLampada.src = "./img/desligada.png";
   }
 };
 
-const ligarDesligar = () => {
-  if (!lamapadaQuebrada()) {
-    if (lamapada.src.indexOf("desligada") > -1) {
-      ligar();
-    } else if (lamapada.src.indexOf("ligada") - 1) {
-      desligar();
+const luzOnOff = () => {
+  if (!luzLampadaQuebrada()) {
+    if (luzLampada.src.indexOf("desligada") > -1) {
+      luzLigar();
+    } else {
+      luzDesligar();
     }
   }
 };
-desligar();
-ligado.addEventListener("click", ligarDesligar);
-reconstruida.addEventListener("click", reconstruir);
-lamapada.addEventListener("dblclick", quebrar);
-lamapada.addEventListener("mouseover", ligar);
-lamapada.addEventListener("mouseout", desligar);
+
+luzDesligar();
+btnOnOff.addEventListener("click", luzOnOff);
+luzLampada.addEventListener("mouseover", luzLigar);
+luzLampada.addEventListener("mouseout", luzDesligar);
+btnreconstrur.addEventListener("click", reconstruirLampada);
+luzLampada.addEventListener("dblclick", destruirLampada);
